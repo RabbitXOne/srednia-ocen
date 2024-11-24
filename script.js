@@ -27,8 +27,6 @@ $('#oceny').on('click', '#wyborOceny .wybierzOcene', function() {
 });
 
 function moznaDodacOcene() {
-    // Jeśli zaznaczona jest dokładnie jedna ocena oraz wpisana jest poprawna waga
-
     let ileOcenZaznaczonych = 0;
     $('.wybierzOcene').each(function() {
         if($(this).hasClass('ring-2 ring-gray-50')) {
@@ -109,7 +107,6 @@ function aktualizujSrednia() {
     for(let i = 0; i < oceny.length; i++) {
         let ocenaDoDodania = 0;
         
-        // Jeśli jest to liczba bez plusa i minusa oraz bez przecinka
         if(!isNaN(oceny[i].ocena) && oceny[i].ocena.indexOf('-') == -1 && oceny[i].ocena.indexOf('+') == -1 && oceny[i].ocena.indexOf(',') == -1) {
             ocenaDoDodania += parseInt(oceny[i].ocena);
         } else if(oceny[i].ocena.indexOf('+') != -1) {
@@ -290,7 +287,6 @@ function nowaOcena(numerOceny) {
         let waga = oceny[numerOceny].waga;
         let ocena = oceny[numerOceny].ocena;
 
-        // Wstaw edytor ocen pod elementem oceny o numerze numerOceny
         $('#oceny .ocena').eq(numerOceny).after(`<div id="wyborOceny" class="bg-gray-800 p-3 mt-3 flex flex-row">
         
         <div class="grid grid-rows-3 grid-cols-6 grid-flow-col gap-1.5 select-none">
