@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Symulator edycji ocen</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+  <div class="hidden sm:flex absolute z-30 top-0 left-0 bg-gray-900 w-svw h-svh justify-center items-center">
+    <p class="text-gray-300 px-8">Otwórz aplikację na telefonie</p>
+  </div>
+
+  <div class="px-3 py-3 flex flex-row">
+    <div class="flex-grow flex flex-col gap-1.5">
+      <h3 id="etap1" class="font-semibold">Wprowadź swoje aktualne oceny</h3>
+      <div id="aktualnaSredniaCalyDiv" class="items-center"><span id="aktualnaSredniaSpan">Średnia ocen: </span><div class="inline-flex"><div id="sredniaDiv" class="inline-flex px-2 py-1 justify-center items-center rounded-md bg-gray-500"><span id="sredniaSpan" class="text-gray-950 text-sm font-semibold">0,00</span></div></div></div>
+      <div id="sredniaPoEdycjiDiv" class="hidden items-center"><span>Średnia po edycji: </span><div class="inline-flex"><div id="nowaSredniaDiv" class="inline-flex px-2 py-1 justify-center items-center rounded-md bg-red-500"><span id="nowaSrednia" class="text-red-950 text-sm font-semibold">1,15</span></div>
+      </div></div>
+    </div>
+
+    <button id="otworzDodawanieOceny" class="hidden w-12 h-12 mr-2 x-1.5 py-1 justify-center items-center rounded-md bg-gray-900 border-2 border-gray-400">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mx-auto"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+    </button>
+
+
+  </div>
+
+  <hr class="mx-3 border-t border-gray-600 mb-2">
+  <div id="oceny" class="flex flex-col">
+    <!-- <div class="ocena flex flex-row p-3 py-0">
+      <div class="numerOceny flex w-12 h-12 px-1.5 py-1 justify-center items-center rounded-md bg-red-500"><span class="w-8 flex-shrink-0 text-2xl text-red-950 text-center font-semibold leading-6">1</span></div>
+      <p class="self-center content-center ml-4 text-gray-300">waga 4</p>
+      <div class="flex-grow"></div>
+      <button class="edytujOcene mr-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button>
+      <button class="usunOcene mr-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-delete"><path d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/><path d="m12 9 6 6"/><path d="m18 9-6 6"/></svg></button>
+    </div> -->
+
+    <div id="wyborOceny" class="bg-gray-800 p-3 mt-3 flex flex-row">
+    
+      <div class="grid grid-rows-3 grid-cols-6 grid-flow-col gap-1.5 select-none">
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-red-600"><span class="w-5 text-red-950 text-center font-semibold leading-6">1-</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-red-500"><span class="w-5 text-red-950 text-center font-semibold leading-6">1</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-red-500"><span class="w-5 text-red-950 text-center font-semibold leading-6">1+</span></div>
+      
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-orange-500"><span class="w-5 text-orange-950 text-center font-semibold leading-6">2-</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-orange-400"><span class="w-5 text-orange-950 text-center font-semibold leading-6">2</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-amber-400"><span class="w-5 text-amber-950 text-center font-semibold leading-6">2+</span></div>
+      
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-yellow-500"><span class="w-5 text-yellow-950 text-center font-semibold leading-6">3-</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-yellow-500"><span class="w-5 text-yellow-950 text-center font-semibold leading-6">3</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-yellow-500"><span class="w-5 text-yellow-950 text-center font-semibold leading-6">3+</span></div>
+      
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-green-500"><span class="w-5 text-green-950 text-center font-semibold leading-6">4-</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-green-500"><span class="w-5 text-green-950 text-center font-semibold leading-6">4</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-green-600"><span class="w-5 text-green-950 text-center font-semibold leading-6">4+</span></div>
+      
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-green-600"><span class="w-5 text-green-950 text-center font-semibold leading-6">5-</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-green-600"><span class="w-5 text-green-950 text-center font-semibold leading-6">5</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-teal-500"><span class="w-5 text-teal-950 text-center font-semibold leading-6">5+</span></div>
+      
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-teal-500"><span class="w-5 text-teal-950 text-center font-semibold leading-6">6-</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-blue-500"><span class="w-5 text-blue-950 text-center font-semibold leading-6">6</span></div>
+        <div class="wybierzOcene flex px-1.5 py-1 justify-center items-center rounded-md bg-blue-500"><span class="w-5 text-blue-950 text-center font-semibold leading-6">6+</span></div>
+      </div>
+      
+      <div class="mx-auto flex flex-col gap-1.5">
+        <label class="justify-center text-center text-xs text-gray-300">waga</label>
+        <input type="number" name="waga" id="waga" class="border-2 border-gray-300 w-24 h-8 rounded-md bg-gray-900 text-semibold text-center text-sm ring-0 outline-none" min="1" max="999" value="1">
+      
+        <div class="flex-grow"></div>
+      
+        <div class="flex flex-row">
+          <button id="potwierdzDodanie" class="flex w-8 h-8 px-1.5 py-1 justify-center items-center rounded-md bg-gray-900 text-gray-300 disabled:text-gray-600" disabled><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus mx-auto"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+      
+          <div class="flex-grow"></div>
+      
+          <button id="anuluj" class="text-sm">zakończ</button>
+        </div>
+      
+      </div>
+      
+      
+      </div>
+
+  </div>
+
+  <div class="relative bottom-0 left-0 w-full text-gray-200 p-3 text-center text-xs">
+    wartość plusa: <span id="wPlusa">0,25</span>
+    •
+    wartość minusa: <span id="wMinusa">0,25</span>
+    <span id="edytujPlusMinus" class="ml-4 text-gray-300 cursor-pointer">edytuj</span>
+  </div>
+
+  
+  <!-- <div class="absolute z-10 top-0 left-0 w-full h-svh overflow-hidden text-gray-200 p-3 flex flex-row h-32 bg-gray-800">
+    
+  </div> -->
+
+  <div id="modalContainer" class="hidden absolute z-10 top-0 left-0 w-full h-svh flex justify-center items-center" style="backdrop-filter: blur(4px);">
+    <div id="modal" class="w-[80%] h-64 bg-gray-800 rounded-md border border-gray-700 flex flex-col justify-center items-center gap-5">
+
+      <div class="flex flex-row gap-3">
+        <div class="flex flex-col">
+          <label class="text-center text-sm mb-1">wartość plusa</label>
+          <input type="text" id="setWPlusa" class="w-32 h-8 rounded bg-gray-900 border-2 border-gray-300 text-sm text-center" value="0,25">
+        </div>
+        <div class="flex flex-col">
+          <label class="text-center text-sm mb-1">wartość plusa</label>
+          <input type="text" id="setWMinusa" class="w-32 h-8 rounded bg-gray-900 border-2 border-gray-300 text-sm text-center" value="0,25">
+        </div>
+      </div>
+
+      <button id="zapiszPlusMinus" class="rounded bg-gray-900 py-2 px-6 text-sm">zapisz</button>
+
+    </div>
+  </div>
+
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+      
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes dialogOpen {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+      
+    }
+
+    @keyframes dialogClose {
+      from {
+        transform: scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+    }
+  </style>
+
+  <script src="script.js"></script>
+</body>
+</html>
